@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "304223488763",
+    "project_id": "sitharatrad",
+    "storage_bucket": "sitharatrad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:304223488763:android:00437a9083cb2403983e5e",
+        "android_client_info": {
+          "package_name": "com.example.sitharatrad"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6UHZhkH346_B5FMjg6csJwzt1lj2XUMo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

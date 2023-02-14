@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">SitharaTrad</string>
+    <string name="hello_blank_fragment">blank Fragment</string>
+
+    <!-- Commonly Used Strings -->
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <string name="cart">Cart</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="sithara_trad">Sithara Trad</string>
+    <string name="enter_phone_number">Enter Phone Number</string>
+    <string name="next">Next</string>
+    <string name="enter_one_time_password">Enter One Time Password</string>
+    <string name="hint_text">Please Wait, auto-detecting the OTP</string>
+    <string name="hint_text1">Please enter the OTP received </string>
+    <string name="enter_username">Enter Username</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="login">Login</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email">Email Id</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="address">Address</string>
+    <string name="pincode">Pin Code</string>
+
+
+</resources>
