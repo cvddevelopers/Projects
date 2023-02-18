@@ -1,14 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="15dp"
     tools:context=".User.Fragment.DetailsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:id="@+id/ufname"
+        android:fontFamily="@font/aclonica"
+        android:text="Full Name"
+        android:gravity="center"
+        android:textSize="21sp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/uemail"
+        android:layout_marginTop="15dp"
+        android:textSize="21sp"
+        android:gravity="center"
+        android:fontFamily="@font/aclonica"
+        android:text="E-Mail Address"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/unumber"
+        android:layout_marginTop="15dp"
+        android:textSize="21sp"
+        android:gravity="center"
+        android:fontFamily="@font/aclonica"
+        android:text="Phone Number"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/uaddress"
+        android:layout_marginTop="15dp"
+        android:textSize="21sp"
+        android:gravity="center"
+        android:fontFamily="@font/aclonica"
+        android:text="Full Address"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/upincode"
+        android:layout_marginTop="15dp"
+        android:textSize="21sp"
+        android:gravity="center"
+        android:fontFamily="@font/aclonica"
+        android:text="Pin Code"/>
 
-</FrameLayout>
+
+</LinearLayout>
+</layout>
