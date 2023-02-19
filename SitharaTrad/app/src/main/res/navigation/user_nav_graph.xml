@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_nav_cart_to_nav_profile"
             app:destination="@id/nav_profile" />
+        <action
+            android:id="@+id/action_nav_cart_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/nav_profile"
@@ -29,4 +32,9 @@
             android:id="@+id/action_nav_home_to_nav_cart"
             app:destination="@id/nav_cart" />
     </fragment>
+    <fragment
+        android:id="@+id/productDetailsFragment"
+        android:name="com.example.sitharatrad.ProductDetailsFragment"
+        android:label="fragment_product_details"
+        tools:layout="@layout/fragment_product_details" />
 </navigation>

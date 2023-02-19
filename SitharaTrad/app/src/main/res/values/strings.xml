@@ -22,6 +22,15 @@
     <string name="phone_number">Phone Number</string>
     <string name="address">Address</string>
     <string name="pincode">Pin Code</string>
+    <string name="GSTIN_number">GSTIN Number</string>
+    <string name="shop_name">Shop Name</string>
 
+    <!--    Product Details-->
+    <string name="product_name">Product Name</string>
+    <string name="product_cost">Product Cost</string>
+    <string name="product_type">Product Type</string>
+    <string name="product_discount">Product Discount</string>
+    <string name="product_availability">Product Availability</string>
+    <string name="product_image">Product Image</string>
 
 </resources>
