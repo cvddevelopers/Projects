@@ -39,7 +39,8 @@ class AuthenticationFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_authentication, container, false)
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_authentication, container, false)
         firebaseAuth = FirebaseAuth.getInstance()
         callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
@@ -48,18 +49,14 @@ class AuthenticationFragment : Fragment() {
             }
 
             override fun onVerificationFailed(e: FirebaseException) {
-
                 if (e is FirebaseAuthInvalidCredentialsException) {
-                    // Invalid request
+                    Toast.makeText(context, "" + e, Toast.LENGTH_LONG).show()
                 } else if (e is FirebaseTooManyRequestsException) {
-                    // The SMS quota for the project has been exceeded
+                    Toast.makeText(context, "" + e, Toast.LENGTH_LONG).show()
                 }
             }
 
-            override fun onCodeSent(
-                verificationId: String,
-                token: PhoneAuthProvider.ForceResendingToken
-            ) {
+            override fun onCodeSent(verificationId: String,token: PhoneAuthProvider.ForceResendingToken) {
                 storedVerificationId = verificationId
                 resendToken = token
             }
@@ -68,50 +65,52 @@ class AuthenticationFragment : Fragment() {
 //            val progressDialog = ProgressDialog(context)
 //            progressDialog.setMessage(getString(R.string.hint_text))
 //            progressDialog.show()
-//            val number = binding.unumber.text
-//            phoneAuthentication(number)
-//            val view:View = layoutInflater.inflate(R.layout.dailog_screen,null)
-//            var editText:EditText = view.findViewById(R.id.uotp)
-//            val builder = AlertDialog.Builder(context)
-//            builder.create()
-//            //builder.setCancelable(false)
-//            builder.setView(view)
-//            builder.setPositiveButton("Verify", DialogInterface.OnClickListener{
-//                dialog, which -> verifyPhoneNumberWithCode(storedVerificationId,editText.text.toString())
-//            })
-//            builder.setNegativeButton("Resend",DialogInterface.OnClickListener{
-//                dialog, which -> resendVerificationCode("+91 "+number, resendToken)
-//            })
-//            builder.setNeutralButton("Cancel",DialogInterface.OnClickListener{
-//                dialog, which ->  dialog.cancel()
-//            })
-//            builder.show()
+            val number = binding.unumber.text
+            phoneAuthentication(number)
+            val view: View = layoutInflater.inflate(R.layout.dailog_screen, null)
+            var editText: EditText = view.findViewById(R.id.uotp)
+            val builder = AlertDialog.Builder(context)
+            builder.create()
+            //builder.setCancelable(false)
+            builder.setView(view)
+            builder.setPositiveButton("Verify", DialogInterface.OnClickListener { dialog, which ->
+                verifyPhoneNumberWithCode(storedVerificationId, editText.text.toString())
+            })
+            builder.setNegativeButton("Resend", DialogInterface.OnClickListener { dialog, which ->
+                resendVerificationCode("+91 " + number, resendToken)
+            })
+            builder.setNeutralButton("Cancel", DialogInterface.OnClickListener { dialog, which ->
+                dialog.cancel()
+            })
+            builder.show()
 //            progressDialog.dismiss()
-            findNavController().navigate(R.id.action_authenticationFragment_to_userProfileFragment)
-            //  startActivity(Intent(context, UserHomeActivity::class.java))
 
         }
 
         val menuHost = requireActivity()
-        menuHost.addMenuProvider(object : MenuProvider{
+        menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                menuInflater.inflate(R.menu.mymenu,menu)
+                menuInflater.inflate(R.menu.mymenu, menu)
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                return when(menuItem.itemId){
+                return when (menuItem.itemId) {
                     R.id.person -> {
-                       findNavController().navigate(R.id.action_authenticationFragment_to_adminAuthFragment)
+                        findNavController().navigate(R.id.action_authenticationFragment_to_adminAuthFragment)
                         true
                     }
                     R.id.info -> {
-                            Toast.makeText(context,"Admin Info Will be Displayed Here",Toast.LENGTH_LONG).show()
-                            true
+                        Toast.makeText(
+                            context,
+                            "Admin Info Will be Displayed Here",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        true
                     }
                     else -> false
                 }
             }
-        },viewLifecycleOwner,Lifecycle.State.RESUMED)
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
         return binding.root
     }
@@ -119,9 +118,9 @@ class AuthenticationFragment : Fragment() {
     private fun phoneAuthentication(number: Editable?) {
         val options = activity?.let {
             PhoneAuthOptions.newBuilder(firebaseAuth)
-                .setPhoneNumber("+91 "+number.toString())       // Phone number to verify
+                .setPhoneNumber("+91 " + number.toString())       // Phone number to verify
                 .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
-                .setActivity(it)                 // Activity (for callback binding)
+                .setActivity(this.requireActivity())                 // Activity (for callback binding)
                 .setCallbacks(callbacks)          // OnVerificationStateChangedCallbacks
                 .build()
         }
@@ -129,25 +128,23 @@ class AuthenticationFragment : Fragment() {
             PhoneAuthProvider.verifyPhoneNumber(options)
         }
     }
+
     private fun verifyPhoneNumberWithCode(verificationId: String?, code: String) {
-        // [START verify_with_code]
         val credential = PhoneAuthProvider.getCredential(verificationId!!, code)
-        // [END verify_with_code]
+        signInWithPhoneAuthCredential(credential)
+
     }
 
-    private fun resendVerificationCode(
-        phoneNumber: String,
-        token: PhoneAuthProvider.ForceResendingToken?
-    ) {
+    private fun resendVerificationCode(phoneNumber: String,token: PhoneAuthProvider.ForceResendingToken?) {
         val optionsBuilder = activity?.let {
             PhoneAuthOptions.newBuilder(firebaseAuth)
-                .setPhoneNumber(phoneNumber)       // Phone number to verify
-                .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
-                .setActivity(it)                 // Activity (for callback binding)
+                .setPhoneNumber("+91 " + phoneNumber)
+                .setTimeout(60L, TimeUnit.SECONDS)
+                .setActivity(it)
                 .setCallbacks(callbacks)
         }          // OnVerificationStateChangedCallbacks
         if (token != null) {
-            optionsBuilder?.setForceResendingToken(token) // callback's ForceResendingToken
+            optionsBuilder?.setForceResendingToken(token)
         }
         PhoneAuthProvider.verifyPhoneNumber(optionsBuilder!!.build())
     }
@@ -158,6 +155,7 @@ class AuthenticationFragment : Fragment() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
+                   // findNavController().navigate(R.id.action_authenticationFragment_to_userProfileFragment)
                     startActivity(Intent(context, UserHomeActivity::class.java))
                     activity?.finish()
                     val user = task.result?.user
@@ -171,7 +169,7 @@ class AuthenticationFragment : Fragment() {
                 }
             }
 
-}
+    }
 
 
 }

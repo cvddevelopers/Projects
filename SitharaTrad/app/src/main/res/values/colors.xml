@@ -9,6 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="bgclr">#ECEAEA</color>
 
+    <color name="transparent">#00FFFFFF</color>
+
 <!--    Material Design 3 Color Palette    -->
 
 <!-- Color Pallet for Light Theme  -->

@@ -27,10 +27,11 @@
 
     <!--    Product Details-->
     <string name="product_name">Product Name</string>
-    <string name="product_cost">Product Cost</string>
+    <string name="product_cost">Cost</string>
     <string name="product_type">Product Type</string>
-    <string name="product_discount">Product Discount</string>
+    <string name="product_discount">Discount</string>
     <string name="product_availability">Product Availability</string>
     <string name="product_image">Product Image</string>
+    <string name="settings">Settings</string>
 
 </resources>

@@ -14,12 +14,19 @@
         <action
             android:id="@+id/action_navigation_home_to_navigation_profile"
             app:destination="@id/navigation_profile" />
+        <action
+            android:id="@+id/action_navigation_home_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.example.sitharatrad.Admin.Fragment.DashboardFragment"
         android:label="fragment_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard" >
+        <action
+            android:id="@+id/action_navigation_dashboard_to_settingsFragment"
+            app:destination="@id/navigation_settings" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.example.sitharatrad.Admin.Fragment.ProfileFragment"
@@ -30,4 +37,14 @@
             android:id="@+id/action_navigation_profile_to_navigation_dashboard"
             app:destination="@id/navigation_dashboard" />
     </fragment>
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.example.sitharatrad.Admin.Fragment.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/productDetailsFragment"
+        android:name="com.example.sitharatrad.ProductDetailsFragment"
+        android:label="fragment_product_details"
+        tools:layout="@layout/fragment_product_details" />
 </navigation>

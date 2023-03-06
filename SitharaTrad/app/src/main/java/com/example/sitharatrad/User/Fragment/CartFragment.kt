@@ -19,6 +19,7 @@ import com.example.sitharatrad.Model.Cart
 import com.example.sitharatrad.R
 import com.example.sitharatrad.databinding.FragmentCartBinding
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.gson.Gson
 import org.json.JSONArray
@@ -28,12 +29,15 @@ class CartFragment : Fragment() {
     lateinit var binding: FragmentCartBinding
     lateinit var cart: ArrayList<Cart>
     lateinit var reference: DatabaseReference
+    lateinit var firebaseAuth: FirebaseAuth
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_cart, container, false)
+        firebaseAuth = FirebaseAuth.getInstance()
+        Toast.makeText(context,firebaseAuth.currentUser!!.phoneNumber,Toast.LENGTH_LONG).show()
         cart = ArrayList<Cart>()
 //        reference = FirebaseDatabase.getInstance().getReference("data")
 //        reference.addValueEventListener(object : ValueEventListener{
