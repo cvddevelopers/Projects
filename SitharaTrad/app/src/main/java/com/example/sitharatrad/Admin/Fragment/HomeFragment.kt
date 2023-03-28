@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.SearchView
 import android.widget.TextView
@@ -52,7 +53,7 @@ class HomeFragment : Fragment() {
                     val productCost = jsonObject.getString("Product_cost")
                     val productDiscount = jsonObject.getString("Avaliability")
                     val productImage = jsonObject.getString("Image link")
-                    val carts = Cart(productName, productDiscount, productCost, productImage)
+                    val carts = Cart("",productName, productDiscount, productCost, productImage)
                     cart.add(carts)
 
                 }
@@ -114,6 +115,7 @@ class HomeFragment : Fragment() {
             holder.tv2.text = cart.get(position).product_cost
             holder.tv3.text = cart.get(position).product_discount
             Glide.with(ct!!).load(cart.get(position).product_image).into(holder.iv)
+
         }
 
         override fun getItemCount(): Int {
@@ -126,7 +128,7 @@ class HomeFragment : Fragment() {
             val tv2: TextView = itemView.findViewById(R.id.pcost)
             val tv3: TextView = itemView.findViewById(R.id.pdiscount)
             val iv: ImageView = itemView.findViewById(R.id.pimage)
-
+            val b:Button = itemView.findViewById(R.id.cartAdd)
             init {
                 itemView.setOnClickListener(this)
             }

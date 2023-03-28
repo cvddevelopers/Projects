@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.sitharatrad.Model.Cart
 import com.example.sitharatrad.Model.User
@@ -26,13 +27,19 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.gson.Gson
 import org.json.JSONArray
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class UserHomeFragment : Fragment() {
     lateinit var binding: FragmentUserHomeBinding
     lateinit var cart: ArrayList<Cart>
     lateinit var reference: DatabaseReference
-
+    lateinit var firebaseAuth: FirebaseAuth
+    lateinit var uid:String
+    lateinit var topviewPager: ViewPager2
+    var currentpage = -1
+    val timer = Timer()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,6 +47,8 @@ class UserHomeFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_user_home, container, false)
         cart = ArrayList<Cart>()
+        firebaseAuth = FirebaseAuth.getInstance()
+        uid = firebaseAuth.currentUser!!.phoneNumber.toString()
         reference = FirebaseDatabase.getInstance().getReference("data")
         reference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -53,7 +62,7 @@ class UserHomeFragment : Fragment() {
                     val productCost = jsonObject.getString("Product_cost")
                     val productDiscount = jsonObject.getString("Avaliability")
                     val productImage = jsonObject.getString("Image link")
-                    val carts = Cart(productName,productDiscount,productCost,productImage)
+                    val carts = Cart(uid,productName,productDiscount,productCost,productImage)
                     cart.add(carts)
 
                 }
@@ -71,15 +80,15 @@ class UserHomeFragment : Fragment() {
         return binding.root
     }
 
-    class CartAdapter(context: Context?, cart: ArrayList<Cart>) : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
+    class CartAdapter(context: Context?, val cart: ArrayList<Cart>) : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
         val ct: Context? = context
-        val cart:ArrayList<Cart> = cart
         lateinit var ref: DatabaseReference
         lateinit var firebaseAuth: FirebaseAuth
-
+        lateinit var uid:String
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             firebaseAuth = FirebaseAuth.getInstance()
-            Toast.makeText(ct,firebaseAuth.currentUser!!.phoneNumber,Toast.LENGTH_LONG).show()
+            uid = firebaseAuth.currentUser!!.phoneNumber.toString()
+          //  Toast.makeText(ct,firebaseAuth.currentUser!!.phoneNumber,Toast.LENGTH_LONG).show()
             ref = FirebaseDatabase.getInstance().getReference("Cart")
             return ViewHolder(LayoutInflater.from(ct).inflate(R.layout.cart_item,parent,false))
         }
@@ -89,12 +98,13 @@ class UserHomeFragment : Fragment() {
             holder.tv2.text = cart.get(position).product_cost
             holder.tv3.text = cart.get(position).product_discount
             Glide.with(ct!!).load(cart.get(position).product_image).into(holder.iv)
+            holder.b.visibility = View.VISIBLE
             holder.b.setOnClickListener(View.OnClickListener {
-                val carts: Cart = Cart(cart.get(position).product_name,
+                val carts: Cart = Cart(uid,cart.get(position).product_name,
                     cart.get(position).product_cost,
                     cart.get(position).product_discount,
                     cart.get(position).product_image)
-                ref.child(""+firebaseAuth.currentUser!!.phoneNumber).child(cart.get(position).product_name).setValue(carts)
+                ref.child(ref.push().key!!).setValue(carts)
                 Toast.makeText(ct, "Added to Cart", Toast.LENGTH_LONG).show()
             })
         }

@@ -30,6 +30,7 @@ class CartFragment : Fragment() {
     lateinit var cart: ArrayList<Cart>
     lateinit var reference: DatabaseReference
     lateinit var firebaseAuth: FirebaseAuth
+    lateinit var uid:String
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,9 +38,31 @@ class CartFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_cart, container, false)
         firebaseAuth = FirebaseAuth.getInstance()
-        Toast.makeText(context,firebaseAuth.currentUser!!.phoneNumber,Toast.LENGTH_LONG).show()
+        uid = firebaseAuth.currentUser!!.phoneNumber.toString()
         cart = ArrayList<Cart>()
-//        reference = FirebaseDatabase.getInstance().getReference("data")
+        reference = FirebaseDatabase.getInstance().getReference("Cart")
+        val query = reference.orderByChild("uid").equalTo(uid)
+        query.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()){
+                    for (datasnapshot in snapshot.children){
+                        val data = datasnapshot.getValue(Cart::class.java)
+                        cart.add(data!!)
+                    }
+                }
+                val adapter  = CartAdapter(context,cart)
+                binding.rvcart.adapter = adapter
+                binding.rvcart.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
+
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+              Toast.makeText(context,""+error,Toast.LENGTH_LONG).show()
+            }
+
+        })
+//
 //        reference.addValueEventListener(object : ValueEventListener{
 //            override fun onDataChange(snapshot: DataSnapshot) {
 //                val data = snapshot.getValue(Any::class.java)
@@ -56,9 +79,6 @@ class CartFragment : Fragment() {
 //                    cart.add(carts)
 //
 //                }
-//                val adapter  = CartAdapter(context,cart)
-//                binding.rvcart.adapter = adapter
-//                binding.rvcart.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
 //            }
 //
 //            override fun onCancelled(error: DatabaseError) {

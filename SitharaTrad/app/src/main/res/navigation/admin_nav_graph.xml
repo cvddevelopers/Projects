@@ -17,6 +17,10 @@
         <action
             android:id="@+id/action_navigation_home_to_productDetailsFragment"
             app:destination="@id/productDetailsFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_ItemAdd"
+            app:destination="@id/navigation_ItemAdd" />
+
     </fragment>
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -47,4 +51,8 @@
         android:name="com.example.sitharatrad.ProductDetailsFragment"
         android:label="fragment_product_details"
         tools:layout="@layout/fragment_product_details" />
+    <fragment
+        android:id="@+id/navigation_ItemAdd"
+        android:name="com.example.sitharatrad.Fragments.ItemAddFragment"
+        android:label="ItemAddFragment" />
 </navigation>

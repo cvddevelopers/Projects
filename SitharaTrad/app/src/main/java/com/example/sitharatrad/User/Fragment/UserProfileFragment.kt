@@ -29,16 +29,19 @@ class UserProfileFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_user_profile, container, false)
         firebaseAuth = FirebaseAuth.getInstance()
         Log.d("USERID",firebaseAuth.currentUser!!.uid)
+
         reference = FirebaseDatabase.getInstance().getReference("Profiles")
-        reference.addValueEventListener(object :
+        reference.child(firebaseAuth.currentUser!!.phoneNumber.toString()).addValueEventListener(object :
             ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val i = snapshot.childrenCount.toInt()
-                if (i==0){
-                    Toast.makeText(context,"No data Available , Please fill the details",Toast.LENGTH_LONG).show()
-                }else{
+                if (snapshot.exists()){
                     Toast.makeText(context,"Welcome Back",Toast.LENGTH_LONG).show()
                     startActivity(Intent(context, UserHomeActivity::class.java))
+                }
+                else{
+                    Toast.makeText(activity,"No data Available , Please fill the details",Toast.LENGTH_LONG).show()
+                    binding.unumber.setText(firebaseAuth.currentUser!!.phoneNumber)
+                    binding.unumber.isEnabled = false
                 }
             }
 

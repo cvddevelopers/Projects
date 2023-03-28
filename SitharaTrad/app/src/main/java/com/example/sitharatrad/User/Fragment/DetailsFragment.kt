@@ -45,7 +45,6 @@ class DetailsFragment : Fragment() {
                     binding.unumber.setText(user.pnumber)
                     binding.uaddress.setText(user.address)
                     binding.upincode.setText(user.pin)
-
                 }
             }
 

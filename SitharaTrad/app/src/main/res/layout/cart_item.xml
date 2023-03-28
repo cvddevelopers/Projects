@@ -13,16 +13,33 @@
     android:layout_height="wrap_content"
     android:padding="9dp">
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        >
     <ImageView
         android:id="@+id/pimage"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:contentDescription="@string/product_image"
         android:scaleType="fitCenter"
-        android:padding="6dp"
-        android:layout_gravity="center"
+        android:paddingBottom="15dp"
+        android:paddingStart="0dp"
+        android:paddingEnd="0dp"
+        android:paddingTop="5dp"
         android:src="@mipmap/ic_launcher"
         />
+
+        <Button
+            android:id="@+id/cartAdd"
+            android:layout_width="84dp"
+            android:layout_height="39dp"
+            android:layout_alignBottom="@id/pimage"
+            android:layout_centerInParent="true"
+
+            android:text="Add"
+            android:visibility="gone" />
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -48,25 +65,23 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:id="@+id/pcost"
+            android:text="cost"
+
             android:gravity="center"
             android:textSize="21sp"
-            android:text="@string/product_cost"/>
+           />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/pdiscount"
             android:gravity="center"
+            android:text="discount"
+            android:textColor="#B8BDB4"
             android:textSize="21sp"
             android:layout_weight="1"
-            android:text="@string/product_discount"/>
+            />
     </LinearLayout>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="27dp"
-            android:id="@+id/cartAdd"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            android:text="Add Cart"/>
+
     </LinearLayout>
 
 
