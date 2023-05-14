@@ -15,7 +15,9 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.sitharatrad.Admin.Fragment.CartAdapter
 import com.example.sitharatrad.Model.Cart
+import com.example.sitharatrad.Model.Order
 import com.example.sitharatrad.R
 import com.example.sitharatrad.databinding.FragmentCartBinding
 import com.google.android.material.snackbar.Snackbar
@@ -27,7 +29,7 @@ import org.json.JSONArray
 
 class CartFragment : Fragment() {
     lateinit var binding: FragmentCartBinding
-    lateinit var cart: ArrayList<Cart>
+    lateinit var order: ArrayList<Order>
     lateinit var reference: DatabaseReference
     lateinit var firebaseAuth: FirebaseAuth
     lateinit var uid:String
@@ -39,18 +41,18 @@ class CartFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_cart, container, false)
         firebaseAuth = FirebaseAuth.getInstance()
         uid = firebaseAuth.currentUser!!.phoneNumber.toString()
-        cart = ArrayList<Cart>()
+        order = ArrayList<Order>()
         reference = FirebaseDatabase.getInstance().getReference("Cart")
         val query = reference.orderByChild("uid").equalTo(uid)
         query.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()){
                     for (datasnapshot in snapshot.children){
-                        val data = datasnapshot.getValue(Cart::class.java)
-                        cart.add(data!!)
+                        val data = datasnapshot.getValue(Order::class.java)
+                        order.add(data!!)
                     }
                 }
-                val adapter  = CartAdapter(context,cart)
+                val adapter  = CartAdapter(context,order)
                 binding.rvcart.adapter = adapter
                 binding.rvcart.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
 
@@ -86,41 +88,9 @@ class CartFragment : Fragment() {
 //            }
 //
 //        })
-        Toast.makeText(context,"No Data Available",Toast.LENGTH_LONG).show()
         return binding.root
 
     }
 
-    class CartAdapter(context: Context?, cart: ArrayList<Cart>) : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
-        val ct: Context? = context
-        val cart:ArrayList<Cart> = cart
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            return ViewHolder(LayoutInflater.from(ct).inflate(R.layout.cart_item,parent,false))
-        }
 
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            holder.tv1.text = cart.get(position).product_name
-            holder.tv2.text = cart.get(position).product_cost
-            holder.tv3.text = cart.get(position).product_discount
-            Glide.with(ct!!).load(cart.get(position).product_image).into(holder.iv)
-        }
-
-        override fun getItemCount(): Int {
-            return cart.size
-        }
-        class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-            val tv1: TextView = itemView.findViewById(R.id.pname)
-            val tv2: TextView = itemView.findViewById(R.id.pcost)
-            val tv3: TextView = itemView.findViewById(R.id.pdiscount)
-            val iv: ImageView = itemView.findViewById(R.id.pimage)
-            init {
-                itemView.setOnClickListener(this)
-            }
-
-            override fun onClick(v: View?) {
-                v!!.findNavController().navigate(R.id.action_nav_cart_to_productDetailsFragment)
-               //findNavController().navigate(R.id.action_nav_cart_to_productDetailsFragment)
-            }
-        }
-    }
 }

@@ -12,10 +12,10 @@ abstract class InternetCheckReceiver : BroadcastReceiver() {
         val status = NetworkUtil.getConnectivityStatusString(context)
         if (status == 0) {
             onNetworkDisConnected()
-           Toast.makeText(context,context.getString(R.string.internet_discon),Toast.LENGTH_LONG).show()
+          // Toast.makeText(context,context.getString(R.string.internet_discon),Toast.LENGTH_LONG).show()
         } else {
             onNetworkConnected()
-            Toast.makeText(context,context.getString(R.string.internet_con),Toast.LENGTH_LONG).show()
+           // Toast.makeText(context,context.getString(R.string.internet_con),Toast.LENGTH_LONG).show()
         }
     }
 

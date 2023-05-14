@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/border_padding_value">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            tools:context=".CompleteDetails">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/profile"
+                android:id="@+id/pimg"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/margin_top_value"
+                android:fontFamily="@font/candal"
+                android:id="@+id/orderId"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/margin_top_value"
+                android:fontFamily="@font/candal"
+                android:id="@+id/orderUid"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:gravity="center"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/candal"
+                android:id="@+id/orderPname"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:gravity="center"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/candal"
+                android:id="@+id/orderQuantity"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:gravity="center"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/candal"
+                android:id="@+id/orderCost"/>
+
+            <TextView
+                android:id="@+id/orderDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/candal"
+                android:gravity="center"
+                android:textSize="24sp" />
+            <TextView
+                android:id="@+id/orderStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/candal"
+                android:gravity="center"
+                android:textSize="24sp" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/accept_order"
+                android:id="@+id/orderAccept"
+                android:layout_weight="1"
+                android:layout_marginRight="@dimen/margin_top_value"
+                android:backgroundTint="@color/trans_accepted"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/order_inprogress"
+                android:layout_weight="1"
+                android:layout_marginRight="@dimen/margin_top_value"
+                android:backgroundTint="@color/trans_inprogress"
+                android:id="@+id/orderInprogress"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cancel_order"
+                android:layout_weight="1"
+                android:backgroundTint="@color/trans_failed"
+                android:id="@+id/orderCancel"/>
+
+        </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+</layout>

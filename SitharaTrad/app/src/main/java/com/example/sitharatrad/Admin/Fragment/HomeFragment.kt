@@ -1,6 +1,5 @@
 package com.example.sitharatrad.Admin.Fragment
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,7 +16,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.sitharatrad.Model.Cart
+import com.example.sitharatrad.Model.Pdata
 import com.example.sitharatrad.R
 import com.example.sitharatrad.databinding.FragmentHomeBinding
 import com.google.firebase.database.*
@@ -30,9 +29,9 @@ import kotlin.collections.ArrayList
 class HomeFragment : Fragment() {
 
     lateinit var binding: FragmentHomeBinding
-    lateinit var cart: ArrayList<Cart>
+    lateinit var list: ArrayList<Pdata>
     lateinit var reference: DatabaseReference
-    lateinit var adapter:CartAdapter
+    lateinit var adapter:DataAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,24 +39,26 @@ class HomeFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
-        cart = ArrayList<Cart>()
+        list = ArrayList<Pdata>()
         reference = FirebaseDatabase.getInstance().getReference("data")
         reference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                list.clear()
                 val data = snapshot.getValue(Any::class.java)
                 val json = Gson().toJson(data)
                 val jsonArray = JSONArray(json)
                 for (i in 0 until jsonArray.length()) {
                     val jsonObject = jsonArray.getJSONObject(i)
+                    val product_type = jsonObject.getString("Product_type")
                     val productName = jsonObject.getString("Product_name")
                     val productCost = jsonObject.getString("Product_cost")
-                    val productDiscount = jsonObject.getString("Avaliability")
+                    val productavail = jsonObject.getString("Avaliability")
                     val productImage = jsonObject.getString("Image link")
-                    val carts = Cart("",productName, productDiscount, productCost, productImage)
-                    cart.add(carts)
+                    val data = Pdata(product_type,productName,productCost,productImage,"",productavail)
+                    list.add(data)
 
                 }
-                adapter  = CartAdapter(context, cart)
+                adapter  = DataAdapter(context, list)
                 binding.ahrv.adapter = adapter
                 binding.ahrv.layoutManager = LinearLayoutManager(
                     context,
@@ -84,8 +85,8 @@ class HomeFragment : Fragment() {
         return binding.root
     }
     fun filter(newText: String?) {
-        val filteredlist = ArrayList<Cart>()
-        for (item in cart) {
+        val filteredlist = ArrayList<Pdata>()
+        for (item in list) {
             if (item.product_name.toLowerCase().contains(newText!!.lowercase(Locale.getDefault()))) {
                 filteredlist.add(item)
             }
@@ -98,24 +99,28 @@ class HomeFragment : Fragment() {
     }
 
 
-    class CartAdapter(context: Context?, var cart: ArrayList<Cart>) : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
+    class DataAdapter(context: Context?, var cart: ArrayList<Pdata>) : RecyclerView.Adapter<DataAdapter.ViewHolder>() {
         val ct: Context? = context
-
-
-        fun filterList(filterlist: ArrayList<Cart>) {
+       lateinit var pname:String
+        fun filterList(filterlist: ArrayList<Pdata>) {
             cart = filterlist
             notifyDataSetChanged()
         }
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            return ViewHolder(LayoutInflater.from(ct).inflate(R.layout.cart_item, parent, false))
+            return ViewHolder(LayoutInflater.from(ct).inflate(R.layout.data_item, parent, false))
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             holder.tv1.text = cart.get(position).product_name
             holder.tv2.text = cart.get(position).product_cost
-            holder.tv3.text = cart.get(position).product_discount
-            Glide.with(ct!!).load(cart.get(position).product_image).into(holder.iv)
-
+           // holder.tv3.text = cart.get(position).product_discount
+            Glide.with(ct!!).load(cart.get(position).imageLink).into(holder.iv)
+//            holder.itemView.setOnClickListener{
+//                val bundle = Bundle()
+//                bundle.putString("pname",cart.get(position).product_name)
+//                it!!.findNavController().navigate(R.id.action_navigation_home_to_productDetailsFragment,bundle)
+//
+//            }
         }
 
         override fun getItemCount(): Int {
@@ -123,19 +128,14 @@ class HomeFragment : Fragment() {
         }
 
 
-        class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+        class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             val tv1: TextView = itemView.findViewById(R.id.pname)
             val tv2: TextView = itemView.findViewById(R.id.pcost)
             val tv3: TextView = itemView.findViewById(R.id.pdiscount)
             val iv: ImageView = itemView.findViewById(R.id.pimage)
             val b:Button = itemView.findViewById(R.id.cartAdd)
-            init {
-                itemView.setOnClickListener(this)
-            }
 
-            override fun onClick(v: View?) {
-                v!!.findNavController().navigate(R.id.action_navigation_home_to_productDetailsFragment)
-            }
+
         }
 
     }

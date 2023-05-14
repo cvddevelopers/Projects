@@ -29,7 +29,7 @@
     <string name="product_name">Product Name</string>
     <string name="product_cost">Product Cost</string>
     <string name="product_type">Product Type</string>
-    <string name="product_discount">Product Discount</string>
+    <string name="product_Offer">Product Offer</string>
     <string name="product_availability">Product Availability</string>
     <string name="product_image">Product Image</string>
     <string name="settings">Settings</string>
@@ -37,12 +37,23 @@
     <string name="internet_con">Connected to Internet</string>
     <string name="internet_discon">No Connectivity</string>
 
-<!--    String Arrays-->
+    <!--    String Arrays-->
     <string-array name="var_cart">
-        <item>New Item</item>
-        <item>Top Offers</item>
-        <item>Top Brands</item>
-        <item>Top Selling</item>
+        <item>NewItem</item>
+        <item>TopOffers</item>
+        <item>TopBrands</item>
+        <item>TopSelling</item>
     </string-array>
+    <!-- Transaction Status  -->
+    <string name="t_completed">Completed</string>
+    <string name="t_failed">Failed</string>
+    <string name="t_inprogress">InProgress</string>
+    <string name="t_ordered">Ordered</string>
+    <string name="t_accepted">Accepted</string>
+    <string name="search_tag">Product Name/Transaction ID</string>
+    <string name="product_quantity">Product Quantity</string>
+    <string name="accept_order">Accept</string>
+    <string name="order_inprogress">InProgress</string>
+    <string name="cancel_order">Cancel</string>
 
 </resources>

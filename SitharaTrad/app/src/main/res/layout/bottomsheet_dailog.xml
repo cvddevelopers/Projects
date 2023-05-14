@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView android:id="@+id/card"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="8dp"
+    android:background="#90FFFFFF"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <!-- Media -->
+        <ImageView
+            android:id="@+id/cartimg"
+            android:layout_width="match_parent"
+            android:layout_height="194dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="content_description_media"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/border_padding_value">
+
+            <!-- Title, secondary and supporting text -->
+            <TextView
+                android:id="@+id/pname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="title"
+                android:textSize="27sp"
+                />
+            <TextView
+                android:id="@+id/pcost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="secondary_text"
+                android:textSize="24sp"
+                android:textColor="?android:attr/textColorSecondary"
+                />
+            <TextView
+                android:id="@+id/pdesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="supporting_text"
+                android:textSize="21sp"
+                android:textColor="?android:attr/textColorSecondary"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+        <!-- Buttons -->
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/toggleButton"
+            android:layout_width="wrap_content"
+            style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+            android:layout_height="wrap_content">
+            <Button
+                style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+                android:id="@+id/button1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/ic_removecart"
+                />
+            <Button
+                style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+                android:id="@+id/button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:textSize="15sp"
+                />
+            <Button
+                style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+                android:id="@+id/button3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/ic_addcart"
+                />
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+
+        </LinearLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Cart"
+            android:textSize="20sp"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_marginTop="@dimen/margin_top_value"
+            android:layout_marginLeft="@dimen/border_padding_value"
+            android:id="@+id/addcart"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Preview"
+            android:textSize="21sp"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:id="@+id/preview"
+            android:layout_marginTop="@dimen/margin_top_value"
+            android:layout_marginLeft="@dimen/border_padding_value"/>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

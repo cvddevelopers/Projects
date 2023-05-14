@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/bgclr">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,7 +15,7 @@
     <ImageView
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:src="@drawable/ic_person"
+        android:src="@drawable/profile"
         android:layout_gravity="center"/>
 
     <TextView
@@ -22,7 +23,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/ufname"
         android:fontFamily="@font/aclonica"
-        android:text="Full Name"
+        android:text="Chiranjeevi"
         android:gravity="center"
         android:textSize="21sp" />
     <TextView
@@ -33,7 +34,7 @@
         android:textSize="21sp"
         android:gravity="center"
         android:fontFamily="@font/aclonica"
-        android:text="E-Mail Address"/>
+        android:text="chiru@gmail.com"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -42,7 +43,7 @@
         android:textSize="21sp"
         android:gravity="center"
         android:fontFamily="@font/aclonica"
-        android:text="Phone Number"/>
+        android:text="9876543210"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -51,7 +52,7 @@
         android:textSize="21sp"
         android:gravity="center"
         android:fontFamily="@font/aclonica"
-        android:text="Shop Name"/>
+        android:text="Char Store"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -60,7 +61,7 @@
         android:textSize="21sp"
         android:gravity="center"
         android:fontFamily="@font/aclonica"
-        android:text="@string/GSTIN_number"/>
+        android:text="qwerty123"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -69,7 +70,7 @@
         android:textSize="21sp"
         android:gravity="center"
         android:fontFamily="@font/aclonica"
-        android:text="Full Address"/>
+        android:text="Jublie hills, Hyderabad"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -78,7 +79,7 @@
         android:textSize="21sp"
         android:gravity="center"
         android:fontFamily="@font/aclonica"
-        android:text="Pin Code"/>
+        android:text="500081"/>
 
 
 </LinearLayout>

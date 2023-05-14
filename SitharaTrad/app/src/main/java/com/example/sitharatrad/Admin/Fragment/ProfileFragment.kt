@@ -9,8 +9,6 @@ import com.example.sitharatrad.R
 
 
 class ProfileFragment : Fragment() {
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

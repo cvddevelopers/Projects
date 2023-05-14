@@ -1,40 +1,51 @@
 package com.example.sitharatrad.Model;
 
 public class Cart {
-    String uid;
+    String productcat, productname,producttype,productquantity,productoffer, productcost, productimage;
 
-    public String getUid() {
-        return uid;
+    public String getProductcat() {
+        return productcat;
     }
 
-    public Cart(String uid, String product_name, String product_discount, String product_cost, String product_image) {
-        this.uid = uid;
-        this.product_name = product_name;
-        this.product_discount = product_discount;
-        this.product_cost = product_cost;
-        this.product_image = product_image;
+    public String getProductname() {
+        return productname;
     }
 
-    String product_name;
-    String product_discount;
-    String product_cost;
-    String product_image;
-
-    public String getProduct_name() {
-        return product_name;
+    public String getProducttype() {
+        return producttype;
     }
 
-    public String getProduct_discount() {
-        return product_discount;
+    public String getProductquantity() {
+        return productquantity;
     }
 
-    public String getProduct_cost() {
-        return product_cost;
+    public String getProductoffer() {
+        return productoffer;
     }
 
-    public String getProduct_image() {
-        return product_image;
+    public String getProductcost() {
+        return productcost;
     }
+
+    public String getProductimage() {
+        return productimage;
+    }
+
+    public Cart(String productcat, String productname, String producttype, String productquantity, String productoffer, String productcost, String productimage) {
+        this.productcat = productcat;
+        this.productname = productname;
+        this.producttype = producttype;
+        this.productquantity = productquantity;
+        this.productoffer = productoffer;
+        this.productcost = productcost;
+        this.productimage = productimage;
+    }
+
+
+
+
+
+
 
     public Cart(){
 

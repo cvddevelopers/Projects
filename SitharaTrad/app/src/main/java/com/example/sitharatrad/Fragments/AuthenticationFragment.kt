@@ -24,13 +24,23 @@ import androidx.navigation.fragment.findNavController
 import com.example.sitharatrad.Admin.AdminHomeActivity
 
 import com.example.sitharatrad.R
+import com.example.sitharatrad.User.Fragment.UserProfileFragment
 import com.example.sitharatrad.User.UserHomeActivity
 import com.example.sitharatrad.databinding.FragmentAuthenticationBinding
 import com.google.android.material.progressindicator.CircularProgressIndicator
+import com.google.firebase.FirebaseApp
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
+import com.google.firebase.appcheck.FirebaseAppCheck
+import com.google.firebase.appcheck.playintegrity.PlayIntegrityAppCheckProviderFactory
+
 import com.google.firebase.auth.*
 import com.google.firebase.auth.PhoneAuthProvider.OnVerificationStateChangedCallbacks
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import java.util.concurrent.TimeUnit
 
 
@@ -42,6 +52,7 @@ class AuthenticationFragment : Fragment() {
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
     private val sharedPrefile = "sharedPref"
     lateinit var sharedPreferences:SharedPreferences
+    lateinit var progressDialog:ProgressDialog
     //lateinit var circularProgressIndicator: CircularProgressIndicator
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,19 +60,27 @@ class AuthenticationFragment : Fragment() {
     ): View? {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_authentication, container, false)
+        FirebaseApp.initializeApp(requireContext())
+        progressDialog = ProgressDialog(requireActivity())
+        progressDialog.setMessage("Please Wait.....")
+        progressDialog.show()
+        val firebaseAppCheck = FirebaseAppCheck.getInstance()
+        firebaseAppCheck.installAppCheckProviderFactory(
+            PlayIntegrityAppCheckProviderFactory.getInstance()
+        )
         sharedPreferences = requireActivity().getSharedPreferences(sharedPrefile,Context.MODE_PRIVATE)
         firebaseAuth = FirebaseAuth.getInstance()
         val pat = Regex("^[6-9][0-9]{9}$")
-        //circularProgressIndicator = CircularProgressIndicator(requireContext())
-       // firebaseAuth.firebaseAuthSettings.forceRecaptchaFlowForTesting(false)
         val sharedNameValue = sharedPreferences.getString("userType","defaultname")
         if(sharedNameValue.equals("Admin")){
             findNavController().navigate(R.id.action_authenticationFragment_to_adminAuthFragment)
             activity?.finish()
         }else if (sharedNameValue.equals("User")) {
-            startActivity(Intent(context, UserHomeActivity::class.java))
-            activity?.finish()
+            //startActivity(Intent(context, UserHomeActivity::class.java))
+            navigate()
+            //activity?.finish()
         } else{
+            progressDialog.dismiss()
             Toast.makeText(context,"Welcome to Sithara Trad",Toast.LENGTH_LONG).show()
         }
         callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
@@ -84,27 +103,23 @@ class AuthenticationFragment : Fragment() {
             }
         }
         binding.sendOtp.setOnClickListener {
-//            val progressDialog = ProgressDialog(context)
-//            progressDialog.setMessage(getString(R.string.hint_text))
-//            progressDialog.show()
             if (binding.unumber.text!!.isEmpty()){
                 binding.tablayout.error = "Can't Be Empty"
             }else if(!pat.matches(binding.unumber.text!!)){
                 binding.tablayout.error = "Enter a valid number"
             }else {
-                //circularProgressIndicator.setProgressCompat(0,true)
                 val number = binding.unumber.text
                 phoneAuthentication(number)
                 val view: View = layoutInflater.inflate(R.layout.dailog_screen, null)
                 var editText: EditText = view.findViewById(R.id.uotp)
                 val builder = AlertDialog.Builder(context)
                 builder.create()
-                //builder.setCancelable(false)
                 builder.setView(view)
                 builder.setPositiveButton(
                     "Verify",
                     DialogInterface.OnClickListener { dialog, which ->
                         verifyPhoneNumberWithCode(storedVerificationId, editText.text.toString())
+                        progressDialog.show()
                     })
                 builder.setNegativeButton(
                     "Resend",
@@ -186,10 +201,12 @@ class AuthenticationFragment : Fragment() {
                     val editor: SharedPreferences.Editor =  sharedPreferences.edit()
                     editor.putString("userType","User")
                     editor.apply()
-//                    findNavController().navigate(R.id.action_authenticationFragment_to_userProfileFragment)
-                    startActivity(Intent(context, UserHomeActivity::class.java))
-                    activity?.finish()
-                    val user = task.result?.user
+
+                    //startActivity(Intent(context, UserHomeActivity::class.java))
+                    //startActivity(Intent(context,UserProfileFragment::class.java))
+                    //activity?.finish()
+                    //val user = task.result?.user
+                    navigate()
                 } else {
                     // Sign in failed, display a message and update the UI
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
@@ -201,6 +218,30 @@ class AuthenticationFragment : Fragment() {
             }
 
     }
+    fun navigate(){
+        firebaseAuth = FirebaseAuth.getInstance()
+        var reference:DatabaseReference = FirebaseDatabase.getInstance().getReference("Profiles")
+        reference.child(firebaseAuth.currentUser!!.phoneNumber.toString()).addListenerForSingleValueEvent(object :
+            ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()){
+                    progressDialog.dismiss()
+                    Toast.makeText(context,"Welcome Back",Toast.LENGTH_LONG).show()
+                    startActivity(Intent(context, UserHomeActivity::class.java))
+                    activity?.finish()
+                }
+                else{
+                    progressDialog.dismiss()
+                    Toast.makeText(context,"No data Available , Please fill the details",Toast.LENGTH_LONG).show()
+                    findNavController().navigate(R.id.action_authenticationFragment_to_userProfileFragment)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(context,""+error,Toast.LENGTH_LONG).show()
+            }
+    })
 
 
+}
 }

@@ -33,7 +33,7 @@ class DetailsFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance()
         reference = database.getReference("Profiles")
-        reference.child("8106410134").addValueEventListener(object :
+        reference.child(auth.currentUser!!.phoneNumber.toString()).addListenerForSingleValueEvent(object :
             ValueEventListener1 {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val user = snapshot.getValue(User::class.java)
@@ -43,6 +43,8 @@ class DetailsFragment : Fragment() {
                     binding.ufname.setText(user.fname+" "+user.lname)
                     binding.uemail.setText(user.email)
                     binding.unumber.setText(user.pnumber)
+                    binding.usname.setText(user.shopname)
+                    binding.ugst.setText(user.gstin)
                     binding.uaddress.setText(user.address)
                     binding.upincode.setText(user.pin)
                 }

@@ -4,7 +4,8 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="?android:attr/actionBarSize">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -49,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:scrollbars="horizontal"
                 android:layout_margin="6dp"
-                android:id="@+id/rv"/>
+                android:id="@+id/topSellingsrv"/>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
@@ -57,7 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="15dp"
-            android:id="@+id/rvhome"
+            android:id="@+id/newItemrv"
             android:scrollbars="vertical"/>
 
         <com.google.android.material.card.MaterialCardView
@@ -84,7 +85,7 @@
                     android:layout_height="wrap_content"
                     android:scrollbars="horizontal"
                     android:layout_margin="6dp"
-                    android:id="@+id/rv2"/>
+                    android:id="@+id/topBrandsrv"/>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 

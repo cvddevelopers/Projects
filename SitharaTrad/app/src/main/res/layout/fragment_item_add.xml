@@ -6,82 +6,100 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="12dp"
-        tools:context=".Fragments.ItemAddFragment">
+        tools:context=".Admin.Fragment.ItemAddFragment">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
+
             <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:entries="@array/var_cart"
-                    android:id="@+id/spinner"
-            />
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:entries="@array/var_cart" />
 
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                android:layout_marginTop="12dp">
+
                 <EditText
+                    android:id="@+id/add_pname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/product_name"
-                    android:id="@+id/add_pname"/>
+                    android:hint="@string/product_name" />
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                android:layout_marginTop="12dp">
+
                 <EditText
+                    android:id="@+id/add_ptype"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/product_cost"
-                    android:id="@+id/add_pcost"/>
+                    android:hint="@string/product_type" />
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                android:layout_marginTop="12dp">
+
                 <EditText
+                    android:id="@+id/add_pquantity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/product_discount"
-                    android:id="@+id/add_pdiscount"/>
+                    android:hint="@string/product_quantity" />
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                android:layout_marginTop="12dp">
+
                 <EditText
+                    android:id="@+id/add_pcost"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/product_availability"
-                    android:id="@+id/add_pavailability"/>
+                    android:hint="@string/product_cost" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp">
+
+                <EditText
+                    android:id="@+id/add_poffer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/product_Offer" />
+            </com.google.android.material.textfield.TextInputLayout>
+
             <ImageView
+                android:id="@+id/add_pimage"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:id="@+id/add_pimage"
-                android:layout_marginTop="12dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_launcher_background"
-                />
+                android:layout_marginTop="12dp"
+                android:src="@drawable/ic_launcher_background" />
+
             <Button
+                android:id="@+id/additem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Add Item"
                 android:layout_marginTop="12dp"
-                android:id="@+id/additem"/>
-
-
+                android:text="Add Item" />
 
 
         </LinearLayout>

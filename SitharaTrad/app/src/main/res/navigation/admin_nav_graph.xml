@@ -53,6 +53,6 @@
         tools:layout="@layout/fragment_product_details" />
     <fragment
         android:id="@+id/navigation_ItemAdd"
-        android:name="com.example.sitharatrad.Fragments.ItemAddFragment"
+        android:name="com.example.sitharatrad.Admin.Fragment.ItemAddFragment"
         android:label="ItemAddFragment" />
 </navigation>

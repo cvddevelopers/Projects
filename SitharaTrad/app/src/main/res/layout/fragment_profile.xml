@@ -1,17 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bgclr">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:gravity="center"
+    android:orientation="vertical"
+    android:padding="@dimen/border_padding_value"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Shop Name : Sithara Trad"
+        android:textSize="27sp"
+        android:fontFamily="@font/aclonica"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Owner Name : Sithara"
+        android:textSize="27sp"
+        android:layout_marginTop="@dimen/margin_top_value"
+        android:fontFamily="@font/aclonica"/>
+
+<com.google.android.material.card.MaterialCardView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/bgclr"
+    app:cardCornerRadius="18dp"
+    android:layout_marginTop="@dimen/margin_top_value"
+   >
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="@dimen/border_padding_value"
     tools:context=".Admin.Fragment.ProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Display the details of the Admin"
-        android:textSize="24sp"/>
+        android:text="UPI ID : Sithara@payment.com"
+        android:textSize="21sp" />
+
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="@dimen/margin_top_value"
+        android:background="@null"
+        android:gravity="center"
+        android:src="@drawable/payment"
+        android:textSize="24sp" />
 
 </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
+
+   <TextView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:text="All your transactions will be Displayed Here"
+       android:textSize="21sp"
+       android:textStyle="bold"
+       android:layout_marginTop="@dimen/margin_top_value"
+       android:fontFamily="@font/dm_serif_display"/>
+</LinearLayout>
+</ScrollView>

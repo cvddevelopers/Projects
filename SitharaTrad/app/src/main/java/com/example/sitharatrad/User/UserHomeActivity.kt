@@ -10,8 +10,9 @@ import android.view.MenuItem
 import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
 import com.example.sitharatrad.MainActivity
 import com.example.sitharatrad.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -25,14 +26,19 @@ class UserHomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_home)
-        bottomNav = findViewById(R.id.bottom_navig_view)
+        bottomNav = findViewById(R.id.bottom_navig_view) as BottomNavigationView
+
         sharedPreferences = this.getSharedPreferences(sharedPrefile, Context.MODE_PRIVATE)
         firebaseAuth = FirebaseAuth.getInstance()
-        val appBarConfiguration: AppBarConfiguration = AppBarConfiguration.Builder(R.id.nav_home,R.id.nav_profile,R.id.nav_cart).build()
-        val navController: NavController =
-            Navigation.findNavController(this, R.id.nav_host_fragment)
-        NavigationUI.setupActionBarWithNavController(this,navController,appBarConfiguration)
-        NavigationUI.setupWithNavController(bottomNav, navController)
+
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
+       // val appBarConfiguration: AppBarConfiguration = AppBarConfiguration.Builder(R.id.nav_home,R.id.nav_profile,R.id.nav_cart,R.id.productDetailsFragment).build()
+        val navController: NavController = navHostFragment!!.findNavController()
+          //  Navigation.findNavController(this, R.id.nav_host_fragment)
+        //NavigationUI.setupActionBarWithNavController(this,navController,appBarConfiguration)
+        if (navController!=null) {
+            bottomNav.setupWithNavController(navController)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

@@ -1,5 +1,6 @@
 package com.example.sitharatrad.User.Fragment
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -14,6 +15,7 @@ import com.example.sitharatrad.Model.User
 import com.example.sitharatrad.R
 import com.example.sitharatrad.User.UserHomeActivity
 import com.example.sitharatrad.databinding.FragmentUserProfileBinding
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
@@ -22,24 +24,28 @@ class UserProfileFragment : Fragment() {
     lateinit var binding : FragmentUserProfileBinding
     lateinit var reference: DatabaseReference
     lateinit var firebaseAuth: FirebaseAuth
+    lateinit var progressDialog: ProgressDialog
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_user_profile, container, false)
+        progressDialog = ProgressDialog(requireActivity())
+        progressDialog.setMessage("Please Wait.....")
+        progressDialog.show()
         firebaseAuth = FirebaseAuth.getInstance()
-        Log.d("USERID",firebaseAuth.currentUser!!.uid)
-
         reference = FirebaseDatabase.getInstance().getReference("Profiles")
-        reference.child(firebaseAuth.currentUser!!.phoneNumber.toString()).addValueEventListener(object :
+        reference.child(firebaseAuth.currentUser!!.phoneNumber.toString()).addListenerForSingleValueEvent(object :
             ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()){
+                    progressDialog.dismiss()
                     Toast.makeText(context,"Welcome Back",Toast.LENGTH_LONG).show()
                     startActivity(Intent(context, UserHomeActivity::class.java))
                 }
                 else{
-                    Toast.makeText(activity,"No data Available , Please fill the details",Toast.LENGTH_LONG).show()
+                    progressDialog.dismiss()
+                    Toast.makeText(context,"No data Available , Please fill the details",Toast.LENGTH_LONG).show()
                     binding.unumber.setText(firebaseAuth.currentUser!!.phoneNumber)
                     binding.unumber.isEnabled = false
                 }

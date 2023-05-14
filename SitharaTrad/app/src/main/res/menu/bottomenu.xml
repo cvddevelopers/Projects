@@ -13,8 +13,8 @@
         android:title="@string/profile"
         android:icon="@drawable/ic_person"/>
     <item android:id="@+id/navigation_settings"
-        android:title="@string/sign_out"
-        android:icon="@drawable/ic_logout"/>
+        android:title="@string/settings"
+        android:icon="@drawable/ic_setting"/>
 
 
 

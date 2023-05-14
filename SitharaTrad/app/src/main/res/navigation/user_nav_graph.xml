@@ -6,23 +6,6 @@
     app:startDestination="@id/nav_home">
 
     <fragment
-        android:id="@+id/nav_cart"
-        android:name="com.example.sitharatrad.User.Fragment.CartFragment"
-        android:label="fragment_cart"
-        tools:layout="@layout/fragment_cart" >
-        <action
-            android:id="@+id/action_nav_cart_to_nav_profile"
-            app:destination="@id/nav_profile" />
-        <action
-            android:id="@+id/action_nav_cart_to_productDetailsFragment"
-            app:destination="@id/productDetailsFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/nav_profile"
-        android:name="com.example.sitharatrad.User.Fragment.DetailsFragment"
-        android:label="fragment_details"
-        tools:layout="@layout/fragment_details" />
-    <fragment
         android:id="@+id/nav_home"
         android:name="com.example.sitharatrad.User.Fragment.UserHomeFragment"
         android:label="fragment_user_home"
@@ -31,7 +14,26 @@
         <action
             android:id="@+id/action_nav_home_to_nav_cart"
             app:destination="@id/nav_cart" />
+        <action
+            android:id="@+id/action_nav_home_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_profile"
+            app:destination="@id/nav_profile" />
+
     </fragment>
+
+    <fragment
+        android:id="@+id/nav_cart"
+        android:name="com.example.sitharatrad.User.Fragment.CartFragment"
+        android:label="fragment_cart"
+        tools:layout="@layout/fragment_cart" />
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.example.sitharatrad.User.Fragment.DetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details" />
+
     <fragment
         android:id="@+id/productDetailsFragment"
         android:name="com.example.sitharatrad.ProductDetailsFragment"
